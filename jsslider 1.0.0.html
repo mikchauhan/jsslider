@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JavaScript Slider</title>
+	<style type="text/css">
+
+		.cc{
+			margin-top: -50px;
+		}
+
+		#slide{
+			background-size: 100%;
+    		width: 100%;
+    		padding-top: 40%;
+    		height: 0;
+    		background-repeat: no-repeat;
+		}
+		button{
+			border: none;
+			background: white;
+			box-shadow:0px 0px 5px red;
+			color: red;
+			text-shadow: 0px 0px 3px green;
+			cursor: pointer;
+			margin: 10px;
+			border-radius: 10px;	
+		}
+		button:hover{
+			box-shadow:0px 0px 10px silver;
+		}
+		 #btnp {
+  			position: absolute;
+  			margin-top: -20%;
+		}
+		#btnn{
+			margin-top:-20%;
+		}
+		.block{
+
+		}
+		.ss{
+			background: red;
+		}
+	</style>
+	<script type="text/javascript">
+		var Photos = [1,2,3,4,5,2];
+		var Counts = 0;
+
+		var dot = document.getElementsByClassName("dot");
+		
+		function slide() {
+		document.getElementById('slide').style.backgroundImage = "url('"+Photos[Counts]+".jpg')";
+			var btnNum = Photos[Counts];
+		
+		console.log("btnNum ==> "+btnNum);
+		console.log("Counts ==> "+Counts);
+		console.log("Photos[Counts] ==> "+Photos[Counts]);
+		
+		
+
+		btnActive();
+	}
+	function btnActive() {
+    var dotNum = document.getElementsByClassName("dot");
+    var i = Counts;
+    console.info(Counts);
+    for (i = 0; i < dotNum.length; i++) {
+    	dotNum[i].style.backgroundColor = "white";
+        dotNum[Counts].style.backgroundColor = "green";
+    }
+}
+		
+
+		function toNext() {
+			Counts++;
+			if (Counts>Photos.length -1) {
+				Counts = 0;
+			}
+			slide();
+		}
+		function toPrev() {
+			Counts--;
+			if (Counts<0) {
+				Counts = Photos.length -1;
+			}
+			slide();
+		}
+		function toImage(val) {
+			Counts=val;
+			slide();
+		}
+		function create(){
+			for(i=1;i<=Photos.length;i++){
+			var btn = document.createElement("BUTTON"); // create button
+			btn.setAttribute("id", "btn"+i+""); //set id button
+			btn.className = "dot"; //set Class name 
+			text = document.createTextNode(i);
+			
+			(btn).appendChild(text);
+			btn.setAttribute("onclick","toImage("+(i-1)+");");
+			document.getElementById('cc').appendChild(btn);
+
+			}
+		}
+
+	window.onload =function(){
+		create();
+		setInterval("toNext()",7000);
+		slide();	
+
+		}
+	</script>
+
+</head>
+
+<body>
+<div id="slide">
+<button id="btnp" onclick="toPrev();">PreV</button>
+<button id="btnn" style="float: right;" onclick="toNext();">NexT</button>
+<div style="width: 100%;">
+<center class='cc' id="cc">
+</center>
+</div>
+</div>
+
+</body>
+</html>	
